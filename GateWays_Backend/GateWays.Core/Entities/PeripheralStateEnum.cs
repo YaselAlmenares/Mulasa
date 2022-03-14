@@ -1,0 +1,5 @@
+﻿enum PeripheralState
+{
+    online,
+    Offline
+}
