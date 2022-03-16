@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-5">
+        <h4>
+            {{title}}
+        </h4>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-5">
+        <form [formGroup]="gatewayForm" (ngSubmit)="onSubmit() " *ngIf="gatewayForm">
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="id" class="form-label">Id</label>
+                    <input type="text" class="form-control" id="id" formControlName="id">
+                </div>             
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                </div>             
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="ipv4" class="form-label">IPv4</label>
+                    <input type="text" class="form-control" id="ipv4" formControlName="ipv4">
+                </div>             
+            </div>
+            <div class="">
+                <button class="btn btn-success col-md-2" [disabled]="!gatewayForm.valid" type="submit">{{editMode?'Update':'Add'}}</button>
+                <button class="btn btn-primary col-md-2" type="button" (click)="Cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-5">
+        <app-peripheral-aux *ngIf="gatewayP" [action]="'delete'" [peripherallist]="gatewayP.peripherals"></app-peripheral-aux>
+        <br>
+        <app-peripheral-aux [action]="'add'" [peripherallist]="peripherals"></app-peripheral-aux>
+    </div>
+</div>
+
+
+
+

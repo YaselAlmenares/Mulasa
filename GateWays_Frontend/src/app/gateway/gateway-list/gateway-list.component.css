@@ -1,0 +1,14 @@
+.list-group-item.active {
+    z-index: 2;
+    color: #000000;
+    background-color: rgb(248 249 250);
+    border-color: #0d6efd;
+}
+
+li.list-group-item {
+    padding: .4rem  1rem;
+}
+
+
+
+

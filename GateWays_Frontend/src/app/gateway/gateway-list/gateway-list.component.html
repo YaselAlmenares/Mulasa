@@ -1,0 +1,44 @@
+
+
+  <div class="row justify-content-center">
+    <div class="col-5">
+        <ul  class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="row justify-content-center">
+                    <div class="col-8">
+                        <h4>
+                            <span>Name</span>
+                            <span> -- </span>
+                            <span>IPv4</span>
+                        </h4>
+                    </div>            
+                </div>
+            </li>
+            <li appHover 
+            *ngFor="let gt of gateways" 
+            class="list-group-item" 
+            (click)="SelectPeripherals(gt.id)"
+            [ngClass]="{'active': selected === gt.id}"> 
+
+            <div class="row justify-content-between">
+                <div class="col-7">
+                    <span>{{gt.name}}</span>
+                    <span> -- </span>
+                    <span>{{gt.ipv4}}</span>
+                </div>
+                <div class="col-5 text-end">
+                    <button type="button" class="btn btn-primary btn-sm rounded-pill" (click)="onEdit(gt.id)">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm rounded-pill" (click)="onDelete(gt.id)">Delete</button>
+                </div>  
+            </div>                            
+            </li> 
+          </ul>
+    </div>
+    <div class="col-5">
+        <app-peripheral-list [peripherallist]="peripherals" [name]="name"></app-peripheral-list>
+    </div>
+  </div>
+  
+
+
+  

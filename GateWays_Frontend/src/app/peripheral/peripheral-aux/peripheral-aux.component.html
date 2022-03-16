@@ -1,0 +1,26 @@
+<p>peripheral-aux works!</p>
+
+<ul *ngIf="peripherallist" class="list-group list-group-flush">
+    <li appHover 
+    *ngFor="let peripheral of peripherallist" 
+    class="list-group-item"> 
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <span>{{peripheral.vendor}}</span>
+            <span> -- </span>
+            <span>{{peripheral.vendor}}</span>
+        </div>
+        <div class="col-4 text-end">
+            <ng-container *ngIf="action=='add'; then add; else delete">
+            </ng-container>
+        </div>
+    </div>                            
+    </li> 
+  </ul>
+
+  <ng-template #add>
+    <button type="button" class="btn btn-primary btn-sm rounded-pill" >Add</button>
+  </ng-template>
+  <ng-template #delete>
+    <button type="button" class="btn btn-danger btn-sm rounded-pill" >Delete</button>
+  </ng-template>

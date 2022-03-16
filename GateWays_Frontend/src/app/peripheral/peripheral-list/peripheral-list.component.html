@@ -1,0 +1,30 @@
+<div  class="row justify-content-center">
+    <div class="col-7">
+        
+    </div>   
+</div>
+
+
+<ul *ngIf="peripherallist" class="list-group list-group-flush">
+    <li *ngIf="name" class="list-group-item">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h4>
+                    <span>{{name}}</span>
+                </h4>
+            </div>            
+        </div>
+    </li>
+    <li appHover 
+    *ngFor="let peripheral of peripherallist" 
+    class="list-group-item"> 
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <span>{{peripheral.vendor}}</span>
+            <span> -- </span>
+            <span>{{peripheral.vendor}}</span>
+        </div>
+    </div>                            
+    </li> 
+  </ul>
+ 
