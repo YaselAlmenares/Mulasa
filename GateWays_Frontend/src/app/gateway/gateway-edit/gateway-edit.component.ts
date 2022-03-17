@@ -1,10 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { catchError, pipe, Subscription, tap } from 'rxjs';
 import { GatewayService } from 'src/app/services/gateway.service';
 import { PeripheralService } from 'src/app/services/peripheral.service';
-import {Peripheral} from '../../shared/peripheral-model';
+import { BusinessException } from 'src/app/shared/error-interface';
+import {Peripheral} from '../../peripheral/peripheral-model';
 import { GatewayP } from '../gateway-model';
 
 @Component({
@@ -80,12 +82,24 @@ export class GatewayEditComponent implements OnInit {
      // this.recipeServices.updateRecipe(this.pos,this.recipeForm.value);
      // this.LoadPeripherals();
     }else{
-      this.gatewayService.addGateway(this.gatewayForm.value).subscribe();
-      this.gatewayP = this.gatewayForm.value as GatewayP;
-      this.editMode = true;
-      this.title = "Edit Gateway";
-      this.LoadPeripherals();
-      console.log(this.gatewayForm.value);
+      this.gatewayService.addGateway(this.gatewayForm.value).subscribe(
+        {
+          next: (data) => {
+            this.gatewayP = data as GatewayP;
+            this.editMode = true;
+            this.title = "Edit Gateway";
+            this.LoadPeripherals();
+            console.log(this.gatewayForm.value);
+
+          },
+          error: (e) => this.localErrorManager(e),
+           
+       }
+      );
+
+
+      
+      
     }
 
   }
@@ -109,4 +123,21 @@ export class GatewayEditComponent implements OnInit {
 
   Cancel(){}
 
+  private localErrorManager(error: any){
+    console.log(error);
+    if(error.status == 420){
+      let businessException = error.error as BusinessException;
+      
+      switch(businessException.StatusCode){
+        case 100:{
+          this.gatewayForm.controls['id'].setErrors({'incorrect': true});
+          
+        }
+      }
+    }
+
+  }
+
 }
+
+

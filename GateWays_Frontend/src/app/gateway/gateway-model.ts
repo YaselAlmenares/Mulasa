@@ -1,4 +1,4 @@
-import { Peripheral } from "../shared/peripheral-model"
+import { Peripheral } from "../peripheral/peripheral-model"
 
 export interface Gateway {
     id:string,

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Peripheral } from 'src/app/shared/peripheral-model';
+import { Peripheral } from 'src/app/peripheral/peripheral-model';
 
 @Component({
   selector: 'app-peripheral-aux',

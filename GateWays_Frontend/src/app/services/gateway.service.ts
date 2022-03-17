@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GatewayP } from '../gateway/gateway-model';
 import { HttpRepositoryService } from './http-repository.service';
@@ -11,13 +13,15 @@ export class GatewayService {
 
 
 
-  constructor(private http: HttpRepositoryService) { }
+  constructor(private http: HttpRepositoryService,
+    private router: Router) { }
 
   getGateways(){
     return this.http.getData(environment.GETALLGATEWAY_URL).pipe(
       tap(()=>{
         console.log("Get All GAteways");
       }),
+      catchError(this.CatchError)
       
     );
   }
@@ -54,6 +58,17 @@ export class GatewayService {
       tap(()=>{
         console.log("CREATE Gate")
       }));  
+  }
+
+  private CatchError (error: HttpErrorResponse){
+    console.log("Catch ERROR in a Gateway Service");
+    console.log(error);
+    if(error.status == 404){  
+      this.router.navigateByUrl("/gateway");   
+      //return of(error);
+    }
+        
+      return throwError(()=> {throw new Error(error.message)});
   }
 
 }

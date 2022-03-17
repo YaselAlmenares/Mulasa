@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Peripheral } from 'src/app/shared/peripheral-model';
+import { Peripheral } from 'src/app/peripheral/peripheral-model';
 import { GatewayService } from 'src/app/services/gateway.service';
 import { Gateway, GatewayP } from '../gateway-model';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -1,5 +1,5 @@
 
-
+<app-error *ngIf="errorMessage" [message]="errorMessage" (close)="OnClose()"></app-error>
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" >Gateways Manager</a>

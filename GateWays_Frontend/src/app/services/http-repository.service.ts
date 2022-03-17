@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpRepositoryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private activeRoute: ActivatedRoute,
+    private router: Router) { }
 
   public getData = (route: string) => {
     return this.http.get(this.createCompleteRoute(route, environment.API_URL));
   }
 
   public getDataById = (route: string,id:any) => {
-    return this.http.get(this.createCompleteRoute(route+"/"+id, environment.API_URL)).pipe(catchError(this.CatchError));
+    return this.http.get(this.createCompleteRoute(route+"/"+id, environment.API_URL));
+    
+    //.pipe(catchError(this.CatchError));
   }
  
   public create = (route: string, body: any) => {
@@ -47,7 +52,12 @@ export class HttpRepositoryService {
 
   private CatchError (error: HttpErrorResponse){
     console.log("Catch ERROR in a Service");
+    console.log(error);
+    if(error.status == 404){
+      //this.router.navigateByUrl("/gateway");
       //return of(error);
+    }
+        
       return throwError(()=> {throw new Error(error.message)});
   }
 
