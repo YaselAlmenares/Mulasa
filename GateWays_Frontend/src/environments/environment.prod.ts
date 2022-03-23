@@ -5,6 +5,14 @@ export const environment = {
   GETGATEWAYBYID_URL: 'gateway/getbyid',
   CREATEGATEWAY_URL: 'gateway/create',
   PERIPHERAL_GATEWAY_URL:'Gateway/PeripheralsInGateway',
+  UPDATEGATEWAY_URL: 'gateway/updategw',
+  UPDATEPERIPHERALLIST_URL: 'gateway/UpdatePeripherals',
+  DELETEGATEWAY_URL: 'gateway/delete',
 
-  GETALLPERIPHERAL_URL: 'peripheral/getall'
+  PERIPHERAL_URL:'peripheral',
+  GETALLPERIPHERAL_URL: 'peripheral/getall',
+  CREATEPERIPHERAL_URL: 'peripheral/create',
+  DELETEPERIPHERAL_URL: 'peripheral/delete',
+  GETPERIPHERALBYID_URL: 'peripheral/getbyid',
+  UPDATEPERIPHERAL_URL: 'peripheral/UpdatePeripheral',
 };

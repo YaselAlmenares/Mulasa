@@ -1,12 +1,16 @@
-<div class="row justify-content-center">
-    <div class="col-5">
-        <h4>
-            {{title}}
-        </h4>
-    </div>
-</div>
 
 <div class="row justify-content-center">
+    <div class="col-5">
+        <h2>
+            {{title}}
+        </h2>
+    </div>
+</div>
+ 
+<div class="row justify-content-center">
+    <div class="text-end">
+        <button class="btn btn-danger col-md-2" type="button" (click)="Cancel()">Cancel</button>
+    </div>
     <div class="col-5">
         <form [formGroup]="gatewayForm" (ngSubmit)="onSubmit() " *ngIf="gatewayForm">
             <div class="mb-3">
@@ -27,16 +31,56 @@
                     <input type="text" class="form-control" id="ipv4" formControlName="ipv4">
                 </div>             
             </div>
-            <div class="">
+            <div class="text-center">
                 <button class="btn btn-success col-md-2" [disabled]="!gatewayForm.valid" type="submit">{{editMode?'Update':'Add'}}</button>
-                <button class="btn btn-primary col-md-2" type="button" (click)="Cancel()">Cancel</button>
             </div>
         </form>
     </div>
-    <div class="col-5">
-        <app-peripheral-aux *ngIf="gatewayP" [action]="'delete'" [peripherallist]="gatewayP.peripherals"></app-peripheral-aux>
-        <br>
-        <app-peripheral-aux [action]="'add'" [peripherallist]="peripherals"></app-peripheral-aux>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div cdkDropListGroup>
+            <div class="example-container">
+              <h2>Peripherals in Gateway</h2>
+          
+              <div
+                cdkDropList
+                [cdkDropListData]="peripheralsG"
+                class="example-list"
+                cdkDropListSortingDisabled
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let peripheral of peripheralsG" cdkDrag><span>{{peripheral.vendor}}</span>
+                    <span> -- </span>
+                    <span>{{peripheral.createDate|date}}</span>
+                    <span> -- </span>
+                    <span [ngClass]="{'text-primary':peripheral.state==='online','text-danger':peripheral.state==='offline'}">
+                        {{peripheral.state | uppercase}}</span></div>
+              </div>
+            </div>
+          
+            <div class="example-container">
+              <h2>Avaliable Peripherals</h2>
+          
+              <div
+                cdkDropList
+                [cdkDropListData]="peripherals"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let peripheral of peripherals" cdkDrag><span>{{peripheral.vendor}}</span>
+                    <span> -- </span>
+                    <span>{{peripheral.createDate|date}}</span>
+                    <span> -- </span>
+                    <span [ngClass]="{'text-primary':peripheral.state==='online','text-danger':peripheral.state==='offline'}">
+                        {{peripheral.state | uppercase}}</span></div>
+              </div>
+            </div>  
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success col-md-2" [disabled]="!updateListflag" (click)="updatePeripherals()">Update Peripherals</button>
+            
+        </div>
+
     </div>
 </div>
 

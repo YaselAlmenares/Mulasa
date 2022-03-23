@@ -1,3 +1,7 @@
-li.list-group-item {
-    padding: .5rem  1rem;
+.mypadding {
+    padding: .35rem  1rem;
+}
+
+button:disabled{
+    color: black !important;
 }

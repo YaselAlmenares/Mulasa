@@ -5,26 +5,30 @@
 </div>
 
 
-<ul *ngIf="peripherallist" class="list-group list-group-flush">
-    <li *ngIf="name" class="list-group-item">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <h4>
-                    <span>{{name}}</span>
-                </h4>
-            </div>            
-        </div>
-    </li>
-    <li appHover 
-    *ngFor="let peripheral of peripherallist" 
-    class="list-group-item"> 
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <span>{{peripheral.vendor}}</span>
+    <div class="example-button-row text-center">
+      <button type="button" mat-button [disabled]="!!!id" class="btn btn-primary rounded-pill" (click)="onEdit()">Edit</button>
+      <button type="button" mat-button [disabled]="!!!id" class="btn btn-danger rounded-pill" (click)="onDelete()">Delete</button>
+    </div>
+
+
+
+  <mat-selection-list #peripheral [multiple]="false" (selectionChange)="onSelectionListChange($event)">
+    <mat-list-option *ngFor="let peripheral of peripheralList|async; index as i" [value]="{id:peripheral.id,pos:i}" class="text-center">
+        <p matLine><span>{{peripheral.vendor}}</span>
             <span> -- </span>
-            <span>{{peripheral.vendor}}</span>
-        </div>
-    </div>                            
-    </li> 
-  </ul>
+            <span>{{peripheral.createDate|date}}</span>
+            <span> -- </span>
+            <span [ngClass]="{'text-primary':peripheral.state==='online','text-danger':peripheral.state==='offline'}">
+                {{peripheral.state | uppercase}}</span></p>
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-divider></mat-divider>
+
+
+
+
+
+
+
+
  

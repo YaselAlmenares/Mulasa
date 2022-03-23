@@ -3,7 +3,7 @@
 export interface Peripheral{
     id:number,
     vendor:string,
-    date:Date,
+    createDate:Date,
     state:string
 }
 

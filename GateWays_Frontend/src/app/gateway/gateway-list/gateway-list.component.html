@@ -2,15 +2,15 @@
 
   <div class="row justify-content-center">
     <div class="col-5">
-        <ul  class="list-group list-group-flush">
+        <ul *ngIf="gateways"  class="list-group list-group-flush">
             <li class="list-group-item">
                 <div class="row justify-content-center">
                     <div class="col-8">
-                        <h4>
-                            <span>Name</span>
-                            <span> -- </span>
-                            <span>IPv4</span>
-                        </h4>
+                        <h2>
+                            
+                            <span> Gateways list</span>
+                            
+                        </h2>
                     </div>            
                 </div>
             </li>
@@ -35,7 +35,8 @@
           </ul>
     </div>
     <div class="col-5">
-        <app-peripheral-list [peripherallist]="peripherals" [name]="name"></app-peripheral-list>
+        <h2 class="text-center"  *ngIf="!peripherals">Select a Gateway</h2>
+        <app-peripheral-aux [peripherallist]="peripherals" [name]="name"></app-peripheral-aux>
     </div>
   </div>
   

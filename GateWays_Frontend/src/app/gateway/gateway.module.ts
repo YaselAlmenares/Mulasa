@@ -9,6 +9,10 @@ import { PeripheralListComponent } from '../peripheral/peripheral-list/periphera
 import { PeripheralModule } from '../peripheral/peripheral.module';
 import { GatewayEditComponent } from './gateway-edit/gateway-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatListModule} from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -25,7 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PeripheralModule,
     HoverDirectiveModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule,
+    MatButtonModule,
+    MatInputModule,
+    DragDropModule
   ],
   exports:[]
 })

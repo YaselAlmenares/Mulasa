@@ -9,8 +9,7 @@ import { Peripheral } from 'src/app/peripheral/peripheral-model';
 export class PeripheralAuxComponent implements OnInit {
 
   @Input() peripherallist!: Peripheral[];
-  @Input()action!:string;
-  @Output() onGatewyaSelected: EventEmitter<Peripheral> = new EventEmitter<Peripheral>();
+  @Input()name!:string;
 
   constructor() { }
 

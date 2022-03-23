@@ -1,0 +1,39 @@
+
+
+<div class="row justify-content-center">
+    <div class="col-5">
+
+        <form [formGroup]="peripheralForm" (ngSubmit)="onSubmit() " *ngIf="peripheralForm">
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Vendor's name</mat-label>
+                <input matInput formControlName="vendor"/>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Created date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="createDate" [max]="currentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <br>
+
+              <mat-form-field appearance="fill">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option value="online">Online</mat-option>
+                  <mat-option value="offline">Offline</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <div class="">
+                <button class="btn btn-success col-md-2" [disabled]="!peripheralForm.valid" type="submit">{{editMode?'Update':'Add'}}</button>
+                <button class="btn btn-primary col-md-2" type="button" (click)="Cancel()">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+</div>

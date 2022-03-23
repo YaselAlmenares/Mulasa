@@ -4,6 +4,7 @@ import { catchError, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +30,14 @@ export class HttpRepositoryService {
  
   public update = (route: string, body: any) => {
     return this.http.put(this.createCompleteRoute(route, environment.API_URL), body, this.generateHeaders());
+  }
+
+  public updateById = (route: string,id:any, body: any) => {
+    return this.http.put(this.createCompleteRoute(route+"/"+id, environment.API_URL), body, this.generateHeaders());
+  }
+
+  public updateById_1 = (route: string,id:any, body: any) => {
+    return this.http.patch(this.createCompleteRoute(route+"/"+id, environment.API_URL), body, this.generateHeaders());
   }
  
   public deleteById = (route: string,id:any) => {

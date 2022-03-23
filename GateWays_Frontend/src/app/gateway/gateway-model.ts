@@ -10,5 +10,5 @@ export interface GatewayP {
     id:string,
     name:string,
     ipv4:string,
-    peripherals:Peripheral[],
+    peripherals:Peripheral[]
 }
