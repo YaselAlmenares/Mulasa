@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "145fa8e4-8c6d-4542-9df1-41b0615a72c4",
+		"name": "Gateways",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gateways",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/gateway/getall",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"gateway",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peripherals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/peripheral/getall",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"peripheral",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewPeripheral",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vendor\": \"vendor23\",\r\n    \"createdate\": \"2022-02-20\",\r\n    \"state\": \"online\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/gateway/Peripheral/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Peripheral",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewGateway",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"Id\": \"3\",\r\n    \"Name\": \"Otro\",\r\n    \"Ipv4\": \"10.10.10.10\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/gateway/Gateway/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Gateway",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GatewayID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/gateway/getbyid/102",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"gateway",
+						"getbyid",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PeripheralID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/peripheral/getbyid/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"peripheral",
+						"getbyid",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PeripheralByGateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/Gateway/PeripheralsInGateway/?id=102",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Gateway",
+						"PeripheralsInGateway",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PeripheralsNotInGateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/gateway/Gateway/PeripheralsNotInGateway/102",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Gateway",
+						"PeripheralsNotInGateway",
+						"102"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateGatewayByID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":12,\r\n    \"name\": \"Gateway1\",\r\n    \"ipv4\": \"255.10.10.10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/gateway/Gateway/updateGw",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Gateway",
+						"updateGw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePeripherals",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 1035,\r\n        \"vendor\": \"Name\",\r\n        \"createDate\": \"2022-03-22T20:32:25.503\",\r\n        \"state\": \"offline\"\r\n    },\r\n     {\r\n        \"id\": 1035,\r\n        \"vendor\": \"Name\",\r\n        \"createDate\": \"2022-03-22T20:32:25.503\",\r\n        \"state\": \"offline\"\r\n    },\r\n     {\r\n        \"id\": 1035,\r\n        \"vendor\": \"Name\",\r\n        \"createDate\": \"2022-03-22T20:32:25.503\",\r\n        \"state\": \"offline\"\r\n    }\r\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/gateway/Gateway/UpdatePeripherals/102",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"gateway",
+						"Gateway",
+						"UpdatePeripherals",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Peripheral",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44331/gateway/Peripheral/Delete/1024",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44331",
+					"path": [
+						"gateway",
+						"Peripheral",
+						"Delete",
+						"1024"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
