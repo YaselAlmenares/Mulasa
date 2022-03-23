@@ -12,7 +12,7 @@ namespace GateWays.Infrastructure.Repository
 
         private IPeripheralRepository _peripheral;
 
-        private IGatewayPeripheralRepository _gatewayPeripheral;
+
 
 
 

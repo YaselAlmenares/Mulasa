@@ -17,6 +17,6 @@ namespace GateWays.Core.DTOs
         [IPv4Address]
         public string Ipv4 { get; set; }
 
-        public List<PeripheralDto> Peripheras     { get; set; }
+        public ICollection<PeripheralDto> Peripherals     { get; set; }
     }
 }

@@ -53,6 +53,8 @@ namespace GateWays.Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
+
             app.UseRouting();
 
             app.ConfigureCustomExceptionMiddleware();

@@ -12,6 +12,10 @@ namespace GateWays.Core.Entities
     [Table("gateway")]
     public class Gateway
     {
+        public Gateway()
+        {
+            Peripherals = new HashSet<Peripheral>();
+        }
         
         [Required(ErrorMessage = "Serial Number is required")]
         public string Id { get; set; }

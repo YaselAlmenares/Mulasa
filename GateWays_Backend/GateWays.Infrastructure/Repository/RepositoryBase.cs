@@ -52,5 +52,10 @@ namespace GateWays.Infrastructure.Repository
         {
             return await this.RepositoryContext.Set<T>().Where(expression).FirstOrDefaultAsync();
         }
+
+        public T GetFirstElement(Expression<Func<T, bool>> expression)
+        {
+            return this.RepositoryContext.Set<T>().FirstOrDefault(expression);
+        }
     }
 }

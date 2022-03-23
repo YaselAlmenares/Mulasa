@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GateWays.Core.DTOs
 {
-    public class PeripheralDto
+    public class PeripheralCreateDto
     {
-        
 
         [Required(ErrorMessage = "vendor is required")]
         public string Vendor { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime CreateDate { get; set; }
+
+
         [Required(ErrorMessage = "State is required")]
         [State]
         public string State { get; set; }

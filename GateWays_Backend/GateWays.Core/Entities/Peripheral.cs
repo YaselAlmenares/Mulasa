@@ -11,6 +11,11 @@ namespace GateWays.Core.Entities
     [Table("peripheral")]
     public  class Peripheral
     {
+        public Peripheral()
+        {
+            Gateways = new HashSet<Gateway>();
+        }
+
         [Required(ErrorMessage = "UID is required")]
         public int Id { get; set; }
 

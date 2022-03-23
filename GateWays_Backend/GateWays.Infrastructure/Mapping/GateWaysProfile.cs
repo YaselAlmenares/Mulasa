@@ -14,6 +14,8 @@ namespace GateWays.Infrastructure.Mapping
             CreateMap<GatewayDetailsDto, Gateway>();
             CreateMap<Gateway, GatewayUpdateDto>();
             CreateMap<GatewayUpdateDto,Gateway> ();
+            CreateMap<Peripheral, PeripheralCreateDto>();
+            CreateMap<PeripheralCreateDto, Peripheral>();
             CreateMap<Peripheral, PeripheralDto>();
             CreateMap<PeripheralDto, Peripheral>();
         }

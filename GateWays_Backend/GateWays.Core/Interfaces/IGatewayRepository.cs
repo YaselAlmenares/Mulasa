@@ -1,12 +1,19 @@
 ﻿using GateWays.Core.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GateWays.Core.Interfaces
 {
     public interface IGatewayRepository : IRepositoryBase<Gateway>
     {
-        Task<Gateway> FindById(string id);
+        Gateway FindById(string id);
+
+        Task<Gateway> FindByIdAsync(string id);
+
+        Gateway UpdatePeripheralList(string id, ICollection<Peripheral> peripheral);
     }
+
+    
 
 
 }

@@ -18,5 +18,7 @@ namespace GateWays.Core.Interfaces
         void Delete(T entity);
 
         Task<T> FirstAsync(Expression<Func<T, bool>> expression);
+
+        T GetFirstElement(Expression<Func<T, bool>> expression);
     }
 }

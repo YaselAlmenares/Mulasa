@@ -3,6 +3,7 @@ using GateWays.Api.CustomException;
 using GateWays.Core.DTOs;
 using GateWays.Core.Entities;
 using GateWays.Core.Interfaces;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace GateWays.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             var gateways = await _repository.Gateway.FindAll();
             var gatewaysDto = _mapper.Map<IEnumerable<GatewayDto>>(gateways);
@@ -38,29 +39,26 @@ namespace GateWays.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public IActionResult GetById(string id)
         {
-            var gateway = await _repository.Gateway.FindById(id);
+            var gateway =  _repository.Gateway.FindById(id);
 
             if(gateway == null)
                 return NotFound();
            
 
-            var peripherals = await _repository.Peripheral.FindByCondition(p => p.Gateways.Contains(gateway));
+           var result = _mapper.Map<GatewayDetailsDto>(gateway);
 
-            var gatewaydto = _mapper.Map<GatewayDetailsDto>(gateway);
+            
 
-            if(peripherals!=null)
-                gatewaydto.Peripheras = (List<PeripheralDto>)_mapper.Map<ICollection<PeripheralDto>>(peripherals);
-
-            return Ok(gatewaydto);
+            return Ok(result);
         
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> PeripheralsNotInGateway(string id)
         {
-            var gateway = await _repository.Gateway.FindById(id);
+            var gateway = await _repository.Gateway.FindByIdAsync(id);
 
             if (gateway == null)
                 return NotFound();
@@ -74,18 +72,32 @@ namespace GateWays.Api.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PeripheralsInGateway(string id)
+        {
+            var gateway =  _repository.Gateway.FindById(id);
+
+            if (gateway == null)
+                return NotFound();
+
+
+            var peripheralsDto = _mapper.Map<ICollection<PeripheralDto>>(gateway.Peripherals);
+
+            return Ok(peripheralsDto);
+
+        }
+
 
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] GatewayDto gatewayDto)
+        public async Task<IActionResult> Create([FromBody] GatewayDto gatewayDto)
         {
             var newgateway = _mapper.Map<Gateway>(gatewayDto);
-            var gateway = await _repository.Gateway.FindById(newgateway.Id);
+            var gateway =  await _repository.Gateway.FindByIdAsync(newgateway.Id);
 
             if (gateway != null)
             {
-                //throw new BusinessException("InsertPost","User do not exist", _mapper)
 
                  throw new BusinessException(100,"Serial number exist");
             }
@@ -102,7 +114,7 @@ namespace GateWays.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGw(string id, [FromBody] GatewayUpdateDto gatewayUpdate)
         {
-            var gateway = await _repository.Gateway.FindById(id);
+            var gateway =  await _repository.Gateway.FindByIdAsync(id);
 
             if (gateway == null)
                 return NotFound();
@@ -117,25 +129,88 @@ namespace GateWays.Api.Controllers
             return Ok(gatewayDto);
         }
 
-
-       /* [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePeripheral(string id, ICollection<int> ids)
+        [HttpPut("{id}")]
+        public IActionResult UpdatePeripherals(string id, ICollection<PeripheralDto> peripheralsdto)
         {
-          /*  var gateway = await _repository.Gateway.FindById(id);
+            if(peripheralsdto.Count > 10)
+            {
+                throw new  BusinessException(101, "The Gateway can has up to 10 peripherals");
+            }
+            var gateway =  _repository.Gateway.FindById(id);
 
             if (gateway == null)
                 return NotFound();
 
-            var peripherals = await _repository.Peripheral.FindByCondition
+            var peripheral = _mapper.Map<ICollection<Peripheral>>(peripheralsdto);
+
+
+            _repository.Gateway.UpdatePeripheralList(id, peripheral);
+
+            var result =  _mapper.Map<ICollection<PeripheralDto>> (gateway.Peripherals);
+
+            return Ok(result);
+        }
+
+
+        [HttpPatch("{id}")]
+        public ActionResult UpdateGw1(string id, JsonPatchDocument<GatewayUpdateDto> pathDocument)
+        {
+
+            var gateway = _repository.Gateway.GetFirstElement(g => g.Id == id);
             if (gateway == null)
                 return NotFound();
 
-            _mapper.Map(gatewayDto, gateway);
+            var gatewayToPatch = _mapper.Map<GatewayUpdateDto>(gateway);
+            pathDocument.ApplyTo(gatewayToPatch, ModelState);
+
+            if (!TryValidateModel(gatewayToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(gatewayToPatch, gateway);
             _repository.Gateway.Update(gateway);
+            _repository.Save();
 
-            await _repository.Save();*/
+            return NoContent();
+        }
 
-            //return Ok();
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var gateway =   _repository.Gateway.FindById(id);
+
+            if (gateway == null)
+                return NotFound();
+
+            _repository.Gateway.Delete(gateway);
+
+            await _repository.Save();
+
+            return Ok();
+        }
+
+
+        /* [HttpPut("{id}")]
+         public async Task<IActionResult> UpdatePeripheral(string id, ICollection<int> ids)
+         {
+           /*  var gateway = await _repository.Gateway.FindById(id);
+
+             if (gateway == null)
+                 return NotFound();
+
+             var peripherals = await _repository.Peripheral.FindByCondition
+             if (gateway == null)
+                 return NotFound();
+
+             _mapper.Map(gatewayDto, gateway);
+             _repository.Gateway.Update(gateway);
+
+             await _repository.Save();*/
+
+        //return Ok();
         //}
 
 

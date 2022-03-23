@@ -32,8 +32,9 @@ namespace GateWays.Api.CustomException
             if (exception.GetType() == typeof(BusinessException))
             {
                 Console.WriteLine("HEre");
-                context.Response.StatusCode = 406;
-                var localEx = new BusinessException(100, exception.Message);
+                context.Response.StatusCode = 420;
+                var aux = exception as BusinessException;
+                var localEx = new BusinessException(aux.StatusCode, aux.Message);
                 return context.Response.WriteAsync(localEx.ToString());
             }
 
@@ -41,7 +42,7 @@ namespace GateWays.Api.CustomException
             context.Response.ContentType = "application/json";
             var _ex = new BusinessException((int)HttpStatusCode.InternalServerError, exception.Message);
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return context.Response.WriteAsync(_ex.ToString());
+            return context.Response.WriteAsync(exception.ToString());
         }
     }
 
